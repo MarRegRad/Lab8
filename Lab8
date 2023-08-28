@@ -1,0 +1,69 @@
+#Составьте все различные лексемы из букв слова «абракадабра» по законам русского языка.
+#ограничение - две согласные не могут быть рядом
+#целевая функция - лексемы с наибольшим числом согласных на четных местах
+
+import tkinter as tk
+
+def generate_words(letters):
+    if len(letters) == 0:
+        return {''}
+    else:
+        first = letters[0]
+        rest = letters[1:]
+        words = generate_words(rest)
+        result = set()
+        for word in words:
+            for i in range(len(word)+1):
+                new_word = word[:i] + first + word[i:]
+                result.add(new_word)
+        result.update(words)
+        return result
+
+def find_words():
+    letters = letters_entry.get()
+    max_count_sogl = 0
+    res = []
+    sogl = "бркд"
+    gl = "а"
+    words = generate_words(letters)
+    for i in words:
+        rule = True
+        count_sogl = 0
+        for j in range(len(i)):
+            if (j % 2 == 1):
+                if i[j] in sogl:
+                    count_sogl += 1
+        for j in range(0, len(i) - 1):
+            if ((i[j] in sogl) and (i[j + 1] in sogl)):
+                rule = False
+        if rule:
+            if count_sogl == max_count_sogl:
+                res.append(i)
+            if count_sogl > max_count_sogl:
+                res = []
+                max_count_sogl = count_sogl
+                res.append(i)
+
+    result_text.delete(1.0, tk.END)
+    result_text.insert(tk.END, f"Максимальное число согласных в слове на чётных местах: {max_count_sogl}\n"
+                               f"Кол-во лексем, удовлетворяющих условию: {len(res)}\n"
+                               f"Лексемы, удовлетворяющие условию:\n")
+    for i in res:
+        result_text.insert(tk.END, i + "\n")
+# Создание графического интерфейса
+root = tk.Tk()
+root.title("Поиск слов")
+root.geometry("400x300")
+
+letters_label = tk.Label(root, text="Буквы:")
+letters_label.pack()
+letters_entry = tk.Entry(root)
+letters_entry.pack()
+
+btn = tk.Button(root, text="Найти", command=find_words)
+btn.pack()
+
+result_text = tk.Text(root, height=10, width=40)
+result_text.pack()
+
+root.mainloop()
