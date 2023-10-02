@@ -64,12 +64,12 @@ root = tk.Tk()
 root.title("Поиск слов")
 root.geometry("400x300")
 
-letters_label = tk.Label(root, text="Слово:")  #создаем надпись "Слово:"
+letters_label = tk.Label(root, text="Введите слово "абракадабра":")  #создаем надпись "Введите слово "абракадабра:"
 letters_label.pack()  #размещаем надпись на окне
 letters_entry = tk.Entry(root)  # Размещаем текстовое поле на окне
 letters_entry.pack()
 
-find_button = tk.Button(root, text="Найти", command=find_root)  #создаем кнопку "Найти" с функцией find_words
+find_button = tk.Button(root, text="Составить лексемы", command=find_root)  #создаем кнопку "Составить лексемы" с функцией find_words
 find_button.pack()  #размещаем кнопку на окне
 
 root.mainloop()
