@@ -64,7 +64,7 @@ root = tk.Tk()
 root.title("Поиск слов")
 root.geometry("400x300")
 
-letters_label = tk.Label(root, text="Буквы:")  #создаем надпись "Буквы:"
+letters_label = tk.Label(root, text="Слово:")  #создаем надпись "Слово:"
 letters_label.pack()  #размещаем надпись на окне
 letters_entry = tk.Entry(root)  # Размещаем текстовое поле на окне
 letters_entry.pack()
